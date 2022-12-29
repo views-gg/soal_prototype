@@ -18,6 +18,8 @@ namespace Assets.Game.Scripts.Entities.Misc
 		public static event Action<Possessable> OnPossessessionStart;
 		public static event Action<Possessable> OnPossessionStopped;
 
+		private bool _isPossesed;
+
 		private PossessionController _controller;
 
 		private void Awake()
@@ -32,6 +34,9 @@ namespace Assets.Game.Scripts.Entities.Misc
 		/// <param name="actor"></param>
 		public void Interact(IInteractionActor actor)
 		{
+			if (_isPossesed)
+				return;
+			_isPossesed = true;
 			OnPossessessionStart?.Invoke(this);
 			_controller.enabled = true;
 			actor.UnSuggestInteraction(this);
@@ -40,6 +45,9 @@ namespace Assets.Game.Scripts.Entities.Misc
 
 		public void UnPossess()
 		{
+			if (!_isPossesed)
+				return;
+			_isPossesed = false;
 			OnPossessionStopped?.Invoke(this);
 			_controller.enabled = false;
 		}

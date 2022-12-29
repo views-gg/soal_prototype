@@ -77,6 +77,8 @@ namespace CMF
 
 		void SmoothUpdate()
 		{
+			if (target == null)
+				return;
 			//Smooth current position;
 			currentPosition = Smooth (currentPosition, target.position, lerpSpeed);
 
@@ -114,6 +116,7 @@ namespace CMF
 		//Call this function if the target has just been moved a larger distance and no interpolation should take place (teleporting);
 		public void ResetCurrentPosition()
 		{
+			if (target == null) return;
 			//Convert local position offset to world coordinates;
 			Vector3 _offset = tr.localToWorldMatrix * localPositionOffset;
 			//Add position offset and set current position;

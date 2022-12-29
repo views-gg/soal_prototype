@@ -40,6 +40,9 @@ namespace Assets.Game.Scripts.Entities.Misc
 
 		private void FixedUpdate()
 		{
+			if (Camera == null)
+				return;
+
 			Vector3 direction = Vector3.zero;
 
 			direction += Vector3.ProjectOnPlane(Camera.right, Vector3.up).normalized * Input.GetAxis("Horizontal");

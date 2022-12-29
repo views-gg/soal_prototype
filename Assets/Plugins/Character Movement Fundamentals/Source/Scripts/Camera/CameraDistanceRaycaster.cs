@@ -93,22 +93,30 @@ namespace CMF
 				ignoreListLayers = new int[ignoreList.Length]; 
 			}
 
-			//(Temporarily) move all objects in ignore list to 'Ignore Raycast' layer and store their layer value for later;
-			for(int i = 0; i < ignoreList.Length; i++)
+			if (ignoreList != null)
 			{
-				if (ignoreList[i] == null)
-					continue;
-				ignoreListLayers[i] = ignoreList[i].gameObject.layer;
-				ignoreList[i].gameObject.layer = ignoreRaycastLayer;
+				//(Temporarily) move all objects in ignore list to 'Ignore Raycast' layer and store their layer value for later;
+				for (int i = 0; i < ignoreList.Length; i++)
+				{
+					if (ignoreList[i] == null)
+						continue;
+					ignoreListLayers[i] = ignoreList[i].gameObject.layer;
+					ignoreList[i].gameObject.layer = ignoreRaycastLayer;
+				}
 			}
 
 			//Calculate current distance by casting a raycast;
 			float _distance = GetCameraDistance();
 
-			//Reset layers;
-			for(int i = 0; i < ignoreList.Length; i++)
+			if (ignoreList != null)
 			{
-				ignoreList[i].gameObject.layer = ignoreListLayers[i];
+				//Reset layers;
+				for (int i = 0; i < ignoreList.Length; i++)
+				{
+					if (ignoreList[i] == null)
+						continue;
+					ignoreList[i].gameObject.layer = ignoreListLayers[i];
+				}
 			}
 
 			//Lerp 'currentDistance' for a smoother transition;
