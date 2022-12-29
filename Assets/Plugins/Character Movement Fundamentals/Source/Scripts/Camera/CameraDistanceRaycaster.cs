@@ -96,6 +96,8 @@ namespace CMF
 			//(Temporarily) move all objects in ignore list to 'Ignore Raycast' layer and store their layer value for later;
 			for(int i = 0; i < ignoreList.Length; i++)
 			{
+				if (ignoreList[i] == null)
+					continue;
 				ignoreListLayers[i] = ignoreList[i].gameObject.layer;
 				ignoreList[i].gameObject.layer = ignoreRaycastLayer;
 			}

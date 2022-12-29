@@ -5,13 +5,37 @@ namespace Assets.Game.Scripts.Entities.Misc
 	public class PossessionController : MonoBehaviour
 	{
 		[SerializeField] public Transform Camera;
-		[SerializeField] private float _moveSpeed;
+		[SerializeField] private float _moveSpeed = 6f;
+		[SerializeField] private float _jumpForce = 10f;
+		[SerializeField] private float _jumpCooldown = 1f;
+		[SerializeField] private LayerMask _ground;
 
+		private bool _grounded = false;
 		private Rigidbody _rb;
+		private float _lastJump;
 
 		private void Awake()
 		{
 			_rb = GetComponent<Rigidbody>();
+		}
+
+		private void Update()
+		{
+			if (Input.GetKeyDown(KeyCode.Space) && Time.time - _lastJump >= _jumpCooldown)
+				Jump();
+		}
+
+		private void Jump()
+		{
+			_lastJump = Time.time;
+			_grounded = false;
+			_rb.AddExplosionForce(_jumpForce, transform.position - Vector3.up, 2f);
+			_rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+		}
+
+		private void ApplyGravity()
+		{
+			_rb.AddForce(Vector3.down);
 		}
 
 		private void FixedUpdate()
@@ -21,12 +45,19 @@ namespace Assets.Game.Scripts.Entities.Misc
 			direction += Vector3.ProjectOnPlane(Camera.right, Vector3.up).normalized * Input.GetAxis("Horizontal");
 			direction += Vector3.ProjectOnPlane(Camera.forward, Vector3.up).normalized * Input.GetAxis("Vertical");
 
+			ApplyGravity();
 			if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
-				_rb.velocity = direction * _moveSpeed;
+				_rb.velocity = new Vector3(direction.x * _moveSpeed, _rb.velocity.y, direction.z * _moveSpeed);
 			else
 			{
-				_rb.velocity = Vector3.Lerp(_rb.velocity, Vector3.zero, 0.123f);
+				_rb.velocity = Vector3.Lerp(_rb.velocity, new Vector3(0, _rb.velocity.y, 0), 0.123f);
 			}
+		}
+
+		private void OnCollisionEnter(Collision collision)
+		{
+			if (_ground == (_ground | (1 << collision.gameObject.layer)))
+				_grounded = true;
 		}
 	}
 }
