@@ -6,6 +6,7 @@ public class DistanceTrackHandler : TrackHandler<bool>
     [SerializeField] private Grabbable _object;
 	[SerializeField] private Navigator _navigator;
 	[SerializeField] private bool _useEyeSight;
+	[SerializeField] private bool _goBackAfterGrab;
 
 	private bool _isAccessible;
 	private Vector3 _initialPos;
@@ -36,16 +37,24 @@ public class DistanceTrackHandler : TrackHandler<bool>
 		}
 
 		// Go to the object
-		_navigator.GoToPosition(_object.transform.position,
+		_navigator.GoToPosition(_object.transform.position, Navigator.Pace.CHILL,
 		onDestinationReached: () =>
 		{
 			_navigator.GetComponent<Grabber>()?.Grab(_object);
-			// Go back to initial position
-			_navigator.GoToPosition(_initialPos, () =>
+
+			if (_goBackAfterGrab)
+			{
+				_navigator.GoToPosition(_initialPos, Navigator.Pace.CHILL, () =>
+				{
+					_isAccessible = true;
+					PlayNextTracks();
+				});
+			}
+			else
 			{
 				_isAccessible = true;
 				PlayNextTracks();
-			});
+			}
 		}, onCantReach: () =>
 		{
 			_isAccessible = false;

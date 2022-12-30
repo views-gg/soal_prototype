@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Assets.Game.Scripts.Entities.Misc
 {
@@ -11,6 +12,8 @@ namespace Assets.Game.Scripts.Entities.Misc
 
 		private Rigidbody _rb;
 		private float _lastJump;
+
+		public static event Action<Rigidbody> OnMove;
 
 		private void Awake()
 		{
@@ -25,6 +28,7 @@ namespace Assets.Game.Scripts.Entities.Misc
 
 		private void Jump()
 		{
+			OnMove?.Invoke(_rb);
 			_lastJump = Time.time;
 			_rb.AddExplosionForce(_jumpForce, transform.position - Vector3.up, 2f);
 			_rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
@@ -45,9 +49,13 @@ namespace Assets.Game.Scripts.Entities.Misc
 			direction += Vector3.ProjectOnPlane(Camera.right, Vector3.up).normalized * Input.GetAxis("Horizontal");
 			direction += Vector3.ProjectOnPlane(Camera.forward, Vector3.up).normalized * Input.GetAxis("Vertical");
 
+			Debug.Log($"mag {_rb.velocity.magnitude} sqrt: {_rb.velocity.sqrMagnitude}");
 			ApplyGravity();
 			if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+			{
+				OnMove?.Invoke(_rb);
 				_rb.velocity = new Vector3(direction.x * _moveSpeed, _rb.velocity.y, direction.z * _moveSpeed);
+			}
 			else
 			{
 				_rb.velocity = Vector3.Lerp(_rb.velocity, new Vector3(0, _rb.velocity.y, 0), 0.123f);

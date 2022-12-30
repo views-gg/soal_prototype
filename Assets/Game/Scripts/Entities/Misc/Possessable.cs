@@ -68,11 +68,11 @@ namespace Assets.Game.Scripts.Entities.Misc
 		{
 			if (!_canBePossessed)
 				return;
-			_isPossesed = true;
-			OnPossessessionStart?.Invoke(this);
 			_controller.enabled = true;
+			_isPossesed = true;
 			actor.UnSuggestInteraction(this);
 			Deselect(null);
+			OnPossessessionStart?.Invoke(this);
 		}
 
 		public void UnPossess()

@@ -11,6 +11,9 @@ namespace Assets.Game.Scripts.Entities.Player
 
 		private Possessable _possession;
 
+		private float _cooldown = 0.5f;
+		private float _lastPossess;
+
 		private void Start()
 		{
 			Cursor.visible = false;
@@ -19,23 +22,26 @@ namespace Assets.Game.Scripts.Entities.Player
 		private void OnEnable()
 		{
 			Possessable.OnPossessessionStart += StartPossession;
+			Possessable.OnPossessionStopped += OnPossessionStopped;
 		}
-		
+
 		private void OnDisable()
 		{
 			Possessable.OnPossessessionStart -= StartPossession;
+			Possessable.OnPossessionStopped -= OnPossessionStopped;
 		}
 
 		private void Update()
 		{
-			if (_possession != null && Input.GetKeyDown(KeyCode.E))
+			if (_possession != null && Input.GetKeyDown(KeyCode.E) && Time.time - _lastPossess >= _cooldown)
 			{
-				StopPossession(_possession);
+				_possession.UnPossess();
 			}
 		}
 
 		private void StartPossession(Possessable possessable)
 		{
+			_lastPossess = Time.time;
 			_possession = possessable;
 			foreach (var monoBehaviour in _disableOnPossess)
 			{
@@ -43,15 +49,14 @@ namespace Assets.Game.Scripts.Entities.Player
 			}
 		}
 
-		private void StopPossession(Possessable possessable)
+		private void OnPossessionStopped(Possessable obj)
 		{
 			foreach (var monoBehaviour in _disableOnPossess)
 			{
 				monoBehaviour.enabled = true;
 			}
 
-			transform.position = possessable.transform.position;
-			possessable.UnPossess();
+			transform.position = obj.transform.position;
 			_possession = null;
 		}
 	}
