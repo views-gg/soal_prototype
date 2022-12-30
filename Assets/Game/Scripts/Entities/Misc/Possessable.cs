@@ -21,11 +21,43 @@ namespace Assets.Game.Scripts.Entities.Misc
 		private bool _isPossesed;
 
 		private PossessionController _controller;
+		private Grabbable _grabbable;
+
+		private bool _canBePossessed => !(_grabbable && _grabbable.IsGrabbed) && !_isPossesed;
 
 		private void Awake()
 		{
 			_controller = GetComponent<PossessionController>();
 			_controller.enabled = false;
+			_grabbable = GetComponent<Grabbable>();
+		}
+
+		private void OnEnable()
+		{
+			if (_grabbable) 
+			{
+				_grabbable.OnGrabbed += OnGrabbed;
+				_grabbable.OnReleased += OnReleased;
+			}
+		}
+
+		private void OnDisable()
+		{
+			if (_grabbable)
+			{
+				_grabbable.OnGrabbed -= OnGrabbed;
+				_grabbable.OnReleased -= OnReleased;
+			}
+		}
+
+		private void OnReleased()
+		{
+		}
+
+		private void OnGrabbed()
+		{
+			if (_isPossesed)
+				UnPossess();
 		}
 
 		/// <summary>
@@ -34,7 +66,7 @@ namespace Assets.Game.Scripts.Entities.Misc
 		/// <param name="actor"></param>
 		public void Interact(IInteractionActor actor)
 		{
-			if (_isPossesed)
+			if (!_canBePossessed)
 				return;
 			_isPossesed = true;
 			OnPossessessionStart?.Invoke(this);
@@ -54,6 +86,9 @@ namespace Assets.Game.Scripts.Entities.Misc
 
 		public void Select(ISelector selector)
 		{
+			if (!_canBePossessed)
+				return;
+
 			var actor = selector as MonoBehaviour;
 			var interaction = actor?.GetComponent<IInteractionActor>();
 

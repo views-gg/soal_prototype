@@ -8,9 +8,7 @@ namespace Assets.Game.Scripts.Entities.Misc
 		[SerializeField] private float _moveSpeed = 6f;
 		[SerializeField] private float _jumpForce = 10f;
 		[SerializeField] private float _jumpCooldown = 1f;
-		[SerializeField] private LayerMask _ground;
 
-		private bool _grounded = false;
 		private Rigidbody _rb;
 		private float _lastJump;
 
@@ -28,7 +26,6 @@ namespace Assets.Game.Scripts.Entities.Misc
 		private void Jump()
 		{
 			_lastJump = Time.time;
-			_grounded = false;
 			_rb.AddExplosionForce(_jumpForce, transform.position - Vector3.up, 2f);
 			_rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
 		}
@@ -55,12 +52,6 @@ namespace Assets.Game.Scripts.Entities.Misc
 			{
 				_rb.velocity = Vector3.Lerp(_rb.velocity, new Vector3(0, _rb.velocity.y, 0), 0.123f);
 			}
-		}
-
-		private void OnCollisionEnter(Collision collision)
-		{
-			if (_ground == (_ground | (1 << collision.gameObject.layer)))
-				_grounded = true;
 		}
 	}
 }
