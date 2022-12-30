@@ -5,6 +5,7 @@ using UnityEngine;
 public class Eyesight : MonoBehaviour
 {
     [SerializeField] private Vector3 _eyesOffset;
+	[SerializeField] private bool _drawGizmos;
 
 	public bool IsInSight(Transform target)
 	{
@@ -15,6 +16,8 @@ public class Eyesight : MonoBehaviour
 
 	private void OnDrawGizmos()
 	{
+		if (!_drawGizmos)
+			return;
 		Gizmos.color = Color.red;
 		Gizmos.DrawSphere(transform.position + _eyesOffset, .1f);
 	}
