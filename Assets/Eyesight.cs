@@ -16,6 +16,6 @@ public class Eyesight : MonoBehaviour
 	private void OnDrawGizmos()
 	{
 		Gizmos.color = Color.red;
-		Gizmos.DrawSphere(transform.position + _eyesOffset, .2f);
+		Gizmos.DrawSphere(transform.position + _eyesOffset, .1f);
 	}
 }
