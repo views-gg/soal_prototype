@@ -3,58 +3,52 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Playables;
 
-/// <summary>
-/// Play through timelines with logical states.
-/// </summary>
-/// <typeparam name="T">The state type.</typeparam>
-public abstract class TrackHandler<T> : MonoBehaviour
+namespace Assets.Game.Scripts.Systems.Timeline
 {
-	[System.Serializable]
-	private struct LogicOutcome
-	{
-		public T TriggerValue;
-		public PlayableDirector[] TrackDirectors;
-	}
-
-	[SerializeField] private LogicOutcome[] _outcomes;
-
-	protected PlayableDirector _director;
-
-	protected virtual void Awake()
-	{
-		_director = GetComponent<PlayableDirector>();
-
-		foreach (var outcome in _outcomes)
-		{
-			if (outcome.TrackDirectors == null)
-				continue;
-
-			foreach (var track in outcome.TrackDirectors)
-				track.gameObject.SetActive(false);
-		}
-	}
-
 	/// <summary>
-	/// Plays next tracks.
+	/// Play through timelines with logical states.
 	/// </summary>
-	protected void PlayNextTracks()
+	/// <typeparam name="T">The state type.</typeparam>
+	public abstract class TrackHandler<T> : MonoBehaviour
 	{
-		T state = CompileState();
-		IEnumerable<LogicOutcome> outcomes = _outcomes.Where(x => state.Equals(x.TriggerValue));
-
-		foreach (var outcome in outcomes)
+		[System.Serializable]
+		private struct LogicOutcome
 		{
-			if (outcome.TrackDirectors == null)
-				continue;
-
-			foreach (var track in outcome.TrackDirectors)
-				track.gameObject.SetActive(true);
+			public T TriggerValue;
+			public PlayableDirector[] TrackDirectors;
 		}
-	}
 
-	/// <summary>
-	/// Execute conditional logic and returns a state value.
-	/// </summary>
-	/// <returns></returns>
-	protected abstract T CompileState();
+		[SerializeField] private LogicOutcome[] _outcomes;
+
+		protected PlayableDirector _director;
+
+		protected virtual void Awake()
+		{
+			_director = GetComponent<PlayableDirector>();
+		}
+
+		/// <summary>
+		/// Plays next tracks.
+		/// </summary>
+		protected void PlayNextTracks()
+		{
+			T state = CompileState();
+			IEnumerable<LogicOutcome> outcomes = _outcomes.Where(x => state.Equals(x.TriggerValue));
+
+			foreach (var outcome in outcomes)
+			{
+				if (outcome.TrackDirectors == null)
+					continue;
+
+				foreach (var track in outcome.TrackDirectors)
+					track.gameObject.SetActive(true);
+			}
+		}
+
+		/// <summary>
+		/// Execute conditional logic and returns a state value.
+		/// </summary>
+		/// <returns></returns>
+		protected abstract T CompileState();
+	}
 }

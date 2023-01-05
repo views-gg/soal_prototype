@@ -49,7 +49,6 @@ namespace Assets.Game.Scripts.Entities.Misc
 			direction += Vector3.ProjectOnPlane(Camera.right, Vector3.up).normalized * Input.GetAxis("Horizontal");
 			direction += Vector3.ProjectOnPlane(Camera.forward, Vector3.up).normalized * Input.GetAxis("Vertical");
 
-			Debug.Log($"mag {_rb.velocity.magnitude} sqrt: {_rb.velocity.sqrMagnitude}");
 			ApplyGravity();
 			if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
 			{
