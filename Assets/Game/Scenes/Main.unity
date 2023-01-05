@@ -15,17 +15,17 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
   m_Fog: 1
-  m_FogColor: {r: 0.8207547, g: 0.6355019, b: 0.56136525, a: 1}
+  m_FogColor: {r: 1, g: 1, b: 1, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 1, g: 0.9481132, b: 0.98378617, a: 1}
+  m_AmbientSkyColor: {r: 0.9103774, g: 0.99027354, b: 1, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 3.37
   m_AmbientMode: 3
-  m_SubtractiveShadowColor: {r: 0.29556784, g: 0.35609594, b: 0.509434, a: 1}
+  m_SubtractiveShadowColor: {r: 0.14862938, g: 0.16028024, b: 0.18867922, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
@@ -392,7 +392,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh61106
+  m_Name: pb_Mesh28822
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6123,6 +6123,18 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 117269171, guid: 5f906914929d3054881865c7298507ef, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 117269171, guid: 5f906914929d3054881865c7298507ef, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 117269171, guid: 5f906914929d3054881865c7298507ef, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 187405338, guid: 5f906914929d3054881865c7298507ef, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
@@ -6214,6 +6226,18 @@ PrefabInstance:
     - target: {fileID: 902257127, guid: 5f906914929d3054881865c7298507ef, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 902257130, guid: 5f906914929d3054881865c7298507ef, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 902257130, guid: 5f906914929d3054881865c7298507ef, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 902257130, guid: 5f906914929d3054881865c7298507ef, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1021334493, guid: 5f906914929d3054881865c7298507ef, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -6588,11 +6612,21 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: be1fc1a4fa17f3c4181238e47a149fb9, type: 2}
+    - target: {fileID: 1711813854840690731, guid: 5f906914929d3054881865c7298507ef,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 56ef62a3556928444aacc90c0f175111, type: 2}
     - target: {fileID: 1711813855556449638, guid: 5f906914929d3054881865c7298507ef,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 263b377e45be3934985e5037c4ee34b8, type: 2}
+    - target: {fileID: 1711813855811338075, guid: 5f906914929d3054881865c7298507ef,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 56ef62a3556928444aacc90c0f175111, type: 2}
     - target: {fileID: 1711813855960115114, guid: 5f906914929d3054881865c7298507ef,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -8686,7 +8720,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh60314
+  m_Name: pb_Mesh27954
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -13012,7 +13046,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 263b377e45be3934985e5037c4ee34b8, type: 2}
+  - {fileID: 2100000, guid: 56ef62a3556928444aacc90c0f175111, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14633,7 +14667,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 56ef62a3556928444aacc90c0f175111, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -23350,7 +23384,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 56ef62a3556928444aacc90c0f175111, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
