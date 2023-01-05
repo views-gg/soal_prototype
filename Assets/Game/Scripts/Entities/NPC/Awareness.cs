@@ -12,7 +12,9 @@ namespace Assets.Game.Scripts.Entities.NPC
 		[SerializeField] private float _spottedRadius;
 		[SerializeField] private float _spottedVelocity;
 		[SerializeField] private bool _drawGizmos;
+		[SerializeField] private AudioClip _scream;
 
+		private AudioSource _source;
 		private PlayableDirector[] _timelines;
 		private Navigator _navigator;
 		private Eyesight _eyesight;
@@ -20,6 +22,7 @@ namespace Assets.Game.Scripts.Entities.NPC
 
 		private void Awake()
 		{
+			_source = GetComponent<AudioSource>();
 			_navigator = GetComponent<Navigator>();
 			_eyesight = GetComponent<Eyesight>();
 		}
@@ -52,6 +55,8 @@ namespace Assets.Game.Scripts.Entities.NPC
 
 		private void Hide()
 		{
+			_source.clip = _scream;
+			_source.Play();
 			foreach (var item in _timelines)
 				item.gameObject.SetActive(false);
 			_isHiding = true;

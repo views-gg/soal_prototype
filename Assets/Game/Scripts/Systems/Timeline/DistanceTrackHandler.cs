@@ -27,6 +27,8 @@ namespace Assets.Game.Scripts.Systems.Timeline
 
 		private void OnTrackEnd(PlayableDirector director)
 		{
+			if (_navigator == null)
+				return;
 			_initialPos = _navigator.transform.position;
 
 			if (_useEyeSight)
